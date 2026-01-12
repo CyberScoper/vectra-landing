@@ -1,15 +1,42 @@
 import { useEffect, useState } from 'react'
-import { motion } from 'framer-motion'
+import {
+    motion, // eslint-disable-line no-unused-vars
+    useMotionValue,
+    useSpring,
+    useTransform,
+} from 'framer-motion'
 
 export default function CustomCursor() {
-    const [position, setPosition] = useState({ x: 0, y: 0 })
+    // ⚡ Bolt Optimization: Use useMotionValue instead of useState for high-frequency updates
+    // This prevents React re-renders on every mouse movement
+    const cursorX = useMotionValue(0)
+    const cursorY = useMotionValue(0)
+
+    // Smooth out the movement using spring physics (matching original values)
+    const dotSpringConfig = { stiffness: 500, damping: 28, mass: 0.5 }
+    const ringSpringConfig = { stiffness: 250, damping: 20, mass: 0.8 }
+
+    const dotX = useSpring(cursorX, dotSpringConfig)
+    const dotY = useSpring(cursorY, dotSpringConfig)
+
+    const ringX = useSpring(cursorX, ringSpringConfig)
+    const ringY = useSpring(cursorY, ringSpringConfig)
+
+    // Center the cursor elements (offsets match original logic: w-3/2 = 6, w-10/2 = 20)
+    const dotXPos = useTransform(dotX, (x) => x - 6)
+    const dotYPos = useTransform(dotY, (y) => y - 6)
+    const ringXPos = useTransform(ringX, (x) => x - 20)
+    const ringYPos = useTransform(ringY, (y) => y - 20)
+
     const [isPointer, setIsPointer] = useState(false)
     const [isHidden, setIsHidden] = useState(false)
     const [isClicking, setIsClicking] = useState(false)
 
     useEffect(() => {
         const handleMouseMove = (e) => {
-            setPosition({ x: e.clientX, y: e.clientY })
+            // Update motion values directly - no React re-render!
+            cursorX.set(e.clientX)
+            cursorY.set(e.clientY)
 
             const target = e.target
             const isClickable =
@@ -40,7 +67,7 @@ export default function CustomCursor() {
             document.removeEventListener('mousedown', handleMouseDown)
             document.removeEventListener('mouseup', handleMouseUp)
         }
-    }, [])
+    }, [cursorX, cursorY])
 
     // Don't render on touch devices
     if (typeof window !== 'undefined' && 'ontouchstart' in window) {
@@ -52,9 +79,11 @@ export default function CustomCursor() {
             {/* Main cursor dot */}
             <motion.div
                 className="fixed top-0 left-0 w-3 h-3 rounded-full bg-[var(--accent-primary)] pointer-events-none z-[9999] mix-blend-difference"
+                style={{
+                    x: dotXPos,
+                    y: dotYPos,
+                }}
                 animate={{
-                    x: position.x - 6,
-                    y: position.y - 6,
                     scale: isClicking ? 0.8 : 1,
                     opacity: isHidden ? 0 : 1,
                 }}
@@ -69,9 +98,11 @@ export default function CustomCursor() {
             {/* Outer ring */}
             <motion.div
                 className="fixed top-0 left-0 w-10 h-10 rounded-full border-2 border-[var(--accent-primary)]/50 pointer-events-none z-[9998]"
+                style={{
+                    x: ringXPos,
+                    y: ringYPos,
+                }}
                 animate={{
-                    x: position.x - 20,
-                    y: position.y - 20,
                     scale: isPointer ? 1.5 : 1,
                     opacity: isHidden ? 0 : 0.5,
                 }}
