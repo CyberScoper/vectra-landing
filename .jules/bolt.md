@@ -1,0 +1,3 @@
+## 2024-05-22 - [Performance Pattern: High-Frequency State Updates]
+**Learning:** React state updates on high-frequency events (like `mousemove` or `scroll`) cause excessive re-renders, even in small components. In `CustomCursor.jsx`, tracking mouse position with `useState` caused the component to re-render on every frame.
+**Action:** Use `framer-motion`'s `useMotionValue` and `useSpring` to bypass the React render cycle. Update the motion values directly in event listeners, and bind them to the `style` prop of `motion` components. This keeps the UI smooth (60fps+) without re-rendering the component tree.
