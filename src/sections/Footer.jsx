@@ -1,4 +1,4 @@
-import { motion } from 'framer-motion'
+import { motion as Motion } from 'framer-motion'
 import { Shield, Twitter, MessageCircle, Github, Mail } from 'lucide-react'
 import { vpnInfo, socialLinks } from '../data/vpn'
 import { useLocale } from '../hooks/useLocale'
@@ -48,7 +48,7 @@ export default function Footer() {
                 <div className="grid md:grid-cols-2 lg:grid-cols-6 gap-12 mb-16">
                     {/* Brand */}
                     <div className="lg:col-span-2">
-                        <motion.a
+                        <Motion.a
                             href="#hero"
                             className="flex items-center gap-2 text-xl font-bold mb-4"
                             whileHover={{ scale: 1.02 }}
@@ -57,7 +57,7 @@ export default function Footer() {
                                 <Shield className="w-4 h-4 text-white" />
                             </div>
                             <span className="gradient-text">{vpnInfo.name}</span>
-                        </motion.a>
+                        </Motion.a>
                         <p className="text-[var(--text-secondary)] mb-6 max-w-xs">
                             {t.footer.tagline}
                         </p>
@@ -66,7 +66,7 @@ export default function Footer() {
                             {socialLinks.map((link) => {
                                 const Icon = iconMap[link.icon] || Mail
                                 return (
-                                    <motion.a
+                                    <Motion.a
                                         key={link.name}
                                         href={link.url}
                                         target="_blank"
@@ -77,7 +77,7 @@ export default function Footer() {
                                         aria-label={link.name}
                                     >
                                         <Icon className="w-5 h-5" />
-                                    </motion.a>
+                                    </Motion.a>
                                 )
                             })}
                         </div>

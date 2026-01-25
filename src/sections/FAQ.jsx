@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { motion, AnimatePresence } from 'framer-motion'
+import { motion as Motion, AnimatePresence } from 'framer-motion'
 import { ChevronDown, HelpCircle } from 'lucide-react'
 import SectionTitle from '../components/SectionTitle'
 import { useLocale } from '../hooks/useLocale'
@@ -18,7 +18,7 @@ export default function FAQ() {
 
                 <div className="space-y-4">
                     {t.faq.items.map((item, i) => (
-                        <motion.div
+                        <Motion.div
                             key={i}
                             initial={{ opacity: 0, y: 20 }}
                             whileInView={{ opacity: 1, y: 0 }}
@@ -42,19 +42,19 @@ export default function FAQ() {
                                 <span className={`flex-1 font-semibold transition-colors ${openIndex === i ? 'text-[var(--accent-primary)]' : ''}`}>
                                     {item.question}
                                 </span>
-                                <motion.div
+                                <Motion.div
                                     animate={{ rotate: openIndex === i ? 180 : 0 }}
                                     transition={{ duration: 0.2 }}
                                     className={`w-8 h-8 rounded-full flex items-center justify-center ${openIndex === i ? 'bg-[var(--accent-primary)]/20' : 'bg-[var(--bg-tertiary)]'
                                         }`}
                                 >
                                     <ChevronDown className={`w-5 h-5 ${openIndex === i ? 'text-[var(--accent-primary)]' : 'text-[var(--text-muted)]'}`} />
-                                </motion.div>
+                                </Motion.div>
                             </button>
 
                             <AnimatePresence>
                                 {openIndex === i && (
-                                    <motion.div
+                                    <Motion.div
                                         initial={{ height: 0, opacity: 0 }}
                                         animate={{ height: 'auto', opacity: 1 }}
                                         exit={{ height: 0, opacity: 0 }}
@@ -63,10 +63,10 @@ export default function FAQ() {
                                         <div className="px-6 pb-6 pl-20 text-[var(--text-secondary)] leading-relaxed">
                                             {item.answer}
                                         </div>
-                                    </motion.div>
+                                    </Motion.div>
                                 )}
                             </AnimatePresence>
-                        </motion.div>
+                        </Motion.div>
                     ))}
                 </div>
             </div>
