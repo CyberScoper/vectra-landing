@@ -1,4 +1,4 @@
-import { motion } from 'framer-motion'
+import { motion as Motion } from 'framer-motion'
 import { Shield, Globe, Zap, ShieldOff, Eye, Smartphone } from 'lucide-react'
 import SectionTitle from '../components/SectionTitle'
 import { useLocale } from '../hooks/useLocale'
@@ -22,7 +22,7 @@ export default function Features() {
                     {t.features.items.map((feature, i) => {
                         const Icon = featureIcons[i] || Shield
                         return (
-                            <motion.div
+                            <Motion.div
                                 key={i}
                                 initial={{ opacity: 0, y: 30 }}
                                 whileInView={{ opacity: 1, y: 0 }}
@@ -38,14 +38,14 @@ export default function Features() {
                                 <div className="absolute -top-20 -right-20 w-40 h-40 bg-[var(--accent-primary)]/20 rounded-full blur-3xl opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
 
                                 {/* Icon container */}
-                                <motion.div
+                                <Motion.div
                                     whileHover={{ rotate: 5, scale: 1.1 }}
                                     className="relative w-16 h-16 rounded-2xl bg-gradient-to-br from-[var(--accent-primary)] to-[var(--accent-secondary)] p-[2px] mb-6"
                                 >
                                     <div className="w-full h-full rounded-2xl bg-[var(--bg-card)] flex items-center justify-center">
                                         <Icon className="w-8 h-8 text-[var(--accent-primary)]" strokeWidth={1.5} />
                                     </div>
-                                </motion.div>
+                                </Motion.div>
 
                                 {/* Content */}
                                 <h3 className="relative text-xl font-bold mb-3 group-hover:text-[var(--accent-primary)] transition-colors">
@@ -54,7 +54,7 @@ export default function Features() {
                                 <p className="relative text-[var(--text-secondary)] text-sm leading-relaxed">
                                     {feature.description}
                                 </p>
-                            </motion.div>
+                            </Motion.div>
                         )
                     })}
                 </div>
