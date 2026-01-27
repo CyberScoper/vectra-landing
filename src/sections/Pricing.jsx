@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { motion } from 'framer-motion'
+import { motion as Motion } from 'framer-motion'
 import { Check, Sparkles, Star } from 'lucide-react'
 import SectionTitle from '../components/SectionTitle'
 import Button from '../components/Button'
@@ -31,7 +31,7 @@ export default function Pricing() {
                         onClick={() => setIsYearly(!isYearly)}
                         className="relative w-16 h-8 rounded-full bg-gradient-to-r from-[var(--accent-primary)] to-[var(--accent-secondary)] p-1 transition-colors"
                     >
-                        <motion.div
+                        <Motion.div
                             animate={{ x: isYearly ? 32 : 0 }}
                             transition={{ type: 'spring', stiffness: 500, damping: 30 }}
                             className="w-6 h-6 rounded-full bg-white shadow-lg"
@@ -41,20 +41,20 @@ export default function Pricing() {
                         {t.pricing.yearly}
                     </span>
                     {isYearly && (
-                        <motion.span
+                        <Motion.span
                             initial={{ scale: 0 }}
                             animate={{ scale: 1 }}
                             className="px-3 py-1 text-xs font-bold bg-gradient-to-r from-[var(--accent-primary)] to-[var(--accent-secondary)] text-white rounded-full"
                         >
                             {t.pricing.save}
-                        </motion.span>
+                        </Motion.span>
                     )}
                 </div>
 
                 {/* Pricing cards */}
                 <div className="grid md:grid-cols-3 gap-8 max-w-5xl mx-auto">
                     {t.pricing.plans.map((plan, i) => (
-                        <motion.div
+                        <Motion.div
                             key={plan.name}
                             initial={{ opacity: 0, y: 30 }}
                             whileInView={{ opacity: 1, y: 0 }}
@@ -113,7 +113,7 @@ export default function Pricing() {
                             >
                                 {t.pricing.getStarted}
                             </Button>
-                        </motion.div>
+                        </Motion.div>
                     ))}
                 </div>
             </div>

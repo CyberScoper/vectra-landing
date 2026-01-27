@@ -1,4 +1,4 @@
-import { motion } from 'framer-motion'
+import { motion as Motion } from 'framer-motion'
 import { ArrowDown, ArrowRight, Shield, Lock, Wifi } from 'lucide-react'
 import Button from '../components/Button'
 import { useLocale } from '../hooks/useLocale'
@@ -15,7 +15,7 @@ export default function Hero() {
             {/* Animated background elements */}
             <div className="absolute inset-0 overflow-hidden">
                 {/* Gradient orbs */}
-                <motion.div
+                <Motion.div
                     animate={{
                         scale: [1, 1.2, 1],
                         opacity: [0.3, 0.6, 0.3],
@@ -23,7 +23,7 @@ export default function Hero() {
                     transition={{ duration: 8, repeat: Infinity }}
                     className="absolute top-1/4 -left-1/4 w-[600px] h-[600px] bg-[var(--accent-primary)]/30 rounded-full blur-[120px]"
                 />
-                <motion.div
+                <Motion.div
                     animate={{
                         scale: [1.2, 1, 1.2],
                         opacity: [0.2, 0.5, 0.2],
@@ -41,7 +41,7 @@ export default function Hero() {
             {/* Content */}
             <div className="relative z-10 max-w-6xl mx-auto px-6 text-center">
                 {/* Badge */}
-                <motion.div
+                <Motion.div
                     initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.6 }}
@@ -54,16 +54,16 @@ export default function Hero() {
                     <span className="text-sm font-medium text-[var(--text-secondary)]">
                         {t.hero.badge}
                     </span>
-                </motion.div>
+                </Motion.div>
 
                 {/* Floating Shield - Above heading*/}
-                <motion.div
+                <Motion.div
                     initial={{ opacity: 0, scale: 0.8 }}
                     animate={{ opacity: 1, scale: 1 }}
                     transition={{ duration: 1, delay: 0.3 }}
                     className="relative inline-block mb-8"
                 >
-                    <motion.div
+                    <Motion.div
                         animate={{ y: [0, -15, 0], rotate: [0, 5, 0] }}
                         transition={{ duration: 5, repeat: Infinity, ease: 'easeInOut' }}
                         className="relative"
@@ -79,25 +79,25 @@ export default function Hero() {
                         </div>
 
                         {/* Floating mini icons */}
-                        <motion.div
+                        <Motion.div
                             animate={{ y: [0, -5, 0], x: [0, 3, 0] }}
                             transition={{ duration: 3, repeat: Infinity, delay: 0.5 }}
                             className="absolute -top-2 -right-4 w-10 h-10 rounded-xl bg-[var(--bg-card)] border border-[var(--border-color)] flex items-center justify-center shadow-lg"
                         >
                             <Lock className="w-5 h-5 text-[var(--accent-secondary)]" />
-                        </motion.div>
-                        <motion.div
+                        </Motion.div>
+                        <Motion.div
                             animate={{ y: [0, 5, 0], x: [0, -3, 0] }}
                             transition={{ duration: 3.5, repeat: Infinity, delay: 1 }}
                             className="absolute -bottom-2 -left-4 w-10 h-10 rounded-xl bg-[var(--bg-card)] border border-[var(--border-color)] flex items-center justify-center shadow-lg"
                         >
                             <Wifi className="w-5 h-5 text-[var(--accent-primary)]" />
-                        </motion.div>
-                    </motion.div>
-                </motion.div>
+                        </Motion.div>
+                    </Motion.div>
+                </Motion.div>
 
                 {/* Main heading */}
-                <motion.h1
+                <Motion.h1
                     initial={{ opacity: 0, y: 30 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.8, delay: 0.4 }}
@@ -107,20 +107,20 @@ export default function Hero() {
                     <span className="bg-gradient-to-r from-[var(--accent-primary)] via-[#c084fc] to-[var(--accent-secondary)] bg-clip-text text-transparent bg-[size:200%_auto] animate-gradient">
                         {t.hero.titleHighlight}
                     </span>
-                </motion.h1>
+                </Motion.h1>
 
                 {/* Subtitle */}
-                <motion.p
+                <Motion.p
                     initial={{ opacity: 0, y: 30 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.8, delay: 0.6 }}
                     className="text-lg md:text-xl text-[var(--text-secondary)] mb-12 max-w-2xl mx-auto leading-relaxed"
                 >
                     {t.hero.subtitle}
-                </motion.p>
+                </Motion.p>
 
                 {/* CTA Buttons */}
-                <motion.div
+                <Motion.div
                     initial={{ opacity: 0, y: 30 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.8, delay: 0.8 }}
@@ -132,17 +132,17 @@ export default function Hero() {
                     <Button href="#features" variant="secondary">
                         {t.hero.secondary}
                     </Button>
-                </motion.div>
+                </Motion.div>
 
                 {/* Stats */}
-                <motion.div
+                <Motion.div
                     initial={{ opacity: 0, y: 30 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.8, delay: 1 }}
                     className="grid grid-cols-2 md:grid-cols-4 gap-6 md:gap-12"
                 >
                     {stats.map((stat, i) => (
-                        <motion.div
+                        <Motion.div
                             key={stat.label}
                             initial={{ opacity: 0, y: 20 }}
                             animate={{ opacity: 1, y: 0 }}
@@ -155,13 +155,13 @@ export default function Hero() {
                             <div className="text-sm text-[var(--text-muted)]">
                                 {stat.label}
                             </div>
-                        </motion.div>
+                        </Motion.div>
                     ))}
-                </motion.div>
+                </Motion.div>
             </div>
 
             {/* Scroll indicator */}
-            <motion.a
+            <Motion.a
                 href="#features"
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
@@ -169,13 +169,13 @@ export default function Hero() {
                 className="absolute bottom-10 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 text-[var(--text-muted)] hover:text-[var(--accent-primary)] transition-colors"
             >
                 <span className="text-xs font-mono">{t.hero.scroll}</span>
-                <motion.div
+                <Motion.div
                     animate={{ y: [0, 8, 0] }}
                     transition={{ duration: 1.5, repeat: Infinity }}
                 >
                     <ArrowDown className="w-5 h-5" />
-                </motion.div>
-            </motion.a>
+                </Motion.div>
+            </Motion.a>
         </section>
     )
 }
