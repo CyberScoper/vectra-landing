@@ -1,4 +1,4 @@
-import { motion } from 'framer-motion'
+import { motion as Motion } from 'framer-motion'
 import { Server, FileCheck, Headphones, RefreshCw } from 'lucide-react'
 import SectionTitle from '../components/SectionTitle'
 import { useLocale } from '../hooks/useLocale'
@@ -23,7 +23,7 @@ export default function WhyUs() {
                     {t.whyUs.items.map((item, i) => {
                         const Icon = whyUsIcons[i] || Server
                         return (
-                            <motion.div
+                            <Motion.div
                                 key={i}
                                 initial={{ opacity: 0, y: 30 }}
                                 whileInView={{ opacity: 1, y: 0 }}
@@ -32,7 +32,7 @@ export default function WhyUs() {
                                 className="text-center group"
                             >
                                 {/* Icon with glow */}
-                                <motion.div
+                                <Motion.div
                                     whileHover={{ scale: 1.1, rotate: 5 }}
                                     className="relative w-20 h-20 mx-auto mb-6"
                                 >
@@ -40,7 +40,7 @@ export default function WhyUs() {
                                     <div className="relative w-full h-full rounded-2xl bg-gradient-to-br from-[var(--accent-primary)]/20 to-[var(--accent-secondary)]/20 border border-[var(--border-color)] flex items-center justify-center group-hover:border-[var(--accent-primary)]/50 transition-colors">
                                         <Icon className="w-10 h-10 text-[var(--accent-primary)]" strokeWidth={1.5} />
                                     </div>
-                                </motion.div>
+                                </Motion.div>
 
                                 <h3 className="text-lg font-bold mb-3 group-hover:text-[var(--accent-primary)] transition-colors">
                                     {item.title}
@@ -48,7 +48,7 @@ export default function WhyUs() {
                                 <p className="text-sm text-[var(--text-secondary)] max-w-xs mx-auto">
                                     {item.description}
                                 </p>
-                            </motion.div>
+                            </Motion.div>
                         )
                     })}
                 </div>

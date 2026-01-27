@@ -1,4 +1,4 @@
-import { motion } from 'framer-motion'
+import { motion as Motion } from 'framer-motion'
 
 export default function Button({
     children,
@@ -48,25 +48,25 @@ export default function Button({
 
     if (href) {
         return (
-            <motion.a
+            <Motion.a
                 href={href}
                 whileHover={{ scale: 1.02 }}
                 whileTap={{ scale: 0.98 }}
                 className={classes}
             >
                 {content}
-            </motion.a>
+            </Motion.a>
         )
     }
 
     return (
-        <motion.button
+        <Motion.button
             onClick={onClick}
             whileHover={{ scale: 1.02 }}
             whileTap={{ scale: 0.98 }}
             className={classes}
         >
             {content}
-        </motion.button>
+        </Motion.button>
     )
 }

@@ -1,4 +1,4 @@
-import { motion } from 'framer-motion'
+import { motion as Motion } from 'framer-motion'
 import { Monitor, Apple, Terminal, Smartphone, Globe, Download } from 'lucide-react'
 import SectionTitle from '../components/SectionTitle'
 import { useLocale } from '../hooks/useLocale'
@@ -32,7 +32,7 @@ export default function DownloadSection() {
                     {platforms.map((platform, i) => {
                         const { Icon } = platform
                         return (
-                            <motion.div
+                            <Motion.div
                                 key={platform.id}
                                 initial={{ opacity: 0, y: 30 }}
                                 whileInView={{ opacity: 1, y: 0 }}
@@ -61,33 +61,33 @@ export default function DownloadSection() {
 
                                 {/* Download button or coming soon */}
                                 {platform.available ? (
-                                    <motion.button
+                                    <Motion.button
                                         whileHover={{ scale: 1.05 }}
                                         whileTap={{ scale: 0.95 }}
                                         className="relative inline-flex items-center gap-1 px-4 py-2 text-sm rounded-lg bg-gradient-to-r from-[var(--accent-primary)] to-[var(--accent-secondary)] text-white font-medium"
                                     >
                                         <Download className="w-4 h-4" />
                                         {t.download.downloadBtn}
-                                    </motion.button>
+                                    </Motion.button>
                                 ) : (
                                     <span className="relative text-xs text-[var(--text-muted)] px-3 py-1 rounded-full bg-[var(--bg-tertiary)]">
                                         {t.download.comingSoon}
                                     </span>
                                 )}
-                            </motion.div>
+                            </Motion.div>
                         )
                     })}
                 </div>
 
                 {/* Version info */}
-                <motion.p
+                <Motion.p
                     initial={{ opacity: 0 }}
                     whileInView={{ opacity: 1 }}
                     viewport={{ once: true }}
                     className="text-center text-sm text-[var(--text-muted)] mt-12"
                 >
                     Version 2.5.1 • Last updated December 2024
-                </motion.p>
+                </Motion.p>
             </div>
         </section>
     )
