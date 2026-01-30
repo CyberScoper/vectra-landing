@@ -1,16 +1,37 @@
 import { useEffect, useState } from 'react'
-import { motion } from 'framer-motion'
+import { motion as Motion, useMotionValue, useSpring, useTransform } from 'framer-motion'
 
 export default function CustomCursor() {
-    const [position, setPosition] = useState({ x: 0, y: 0 })
+    // Use motion values to bypass React render cycle for position
+    const cursorX = useMotionValue(-100)
+    const cursorY = useMotionValue(-100)
+
+    // Spring configurations matching original transition props
+    const dotSpringConfig = { stiffness: 500, damping: 28, mass: 0.5 }
+    const ringSpringConfig = { stiffness: 250, damping: 20, mass: 0.8 }
+
+    const dotX = useSpring(cursorX, dotSpringConfig)
+    const dotY = useSpring(cursorY, dotSpringConfig)
+    const ringX = useSpring(cursorX, ringSpringConfig)
+    const ringY = useSpring(cursorY, ringSpringConfig)
+
+    // Apply offsets
+    const dotXPos = useTransform(dotX, (x) => x - 6)
+    const dotYPos = useTransform(dotY, (y) => y - 6)
+    const ringXPos = useTransform(ringX, (x) => x - 20)
+    const ringYPos = useTransform(ringY, (y) => y - 20)
+
     const [isPointer, setIsPointer] = useState(false)
     const [isHidden, setIsHidden] = useState(false)
     const [isClicking, setIsClicking] = useState(false)
 
     useEffect(() => {
         const handleMouseMove = (e) => {
-            setPosition({ x: e.clientX, y: e.clientY })
+            cursorX.set(e.clientX)
+            cursorY.set(e.clientY)
+        }
 
+        const checkClickable = (e) => {
             const target = e.target
             const isClickable =
                 target.tagName === 'A' ||
@@ -28,6 +49,9 @@ export default function CustomCursor() {
         const handleMouseUp = () => setIsClicking(false)
 
         window.addEventListener('mousemove', handleMouseMove)
+        // Move expensive check to mouseover
+        window.addEventListener('mouseover', checkClickable)
+
         document.addEventListener('mouseleave', handleMouseLeave)
         document.addEventListener('mouseenter', handleMouseEnter)
         document.addEventListener('mousedown', handleMouseDown)
@@ -35,12 +59,13 @@ export default function CustomCursor() {
 
         return () => {
             window.removeEventListener('mousemove', handleMouseMove)
+            window.removeEventListener('mouseover', checkClickable)
             document.removeEventListener('mouseleave', handleMouseLeave)
             document.removeEventListener('mouseenter', handleMouseEnter)
             document.removeEventListener('mousedown', handleMouseDown)
             document.removeEventListener('mouseup', handleMouseUp)
         }
-    }, [])
+    }, [cursorX, cursorY])
 
     // Don't render on touch devices
     if (typeof window !== 'undefined' && 'ontouchstart' in window) {
@@ -50,37 +75,31 @@ export default function CustomCursor() {
     return (
         <>
             {/* Main cursor dot */}
-            <motion.div
+            <Motion.div
                 className="fixed top-0 left-0 w-3 h-3 rounded-full bg-[var(--accent-primary)] pointer-events-none z-[9999] mix-blend-difference"
+                style={{
+                    x: dotXPos,
+                    y: dotYPos,
+                }}
                 animate={{
-                    x: position.x - 6,
-                    y: position.y - 6,
                     scale: isClicking ? 0.8 : 1,
                     opacity: isHidden ? 0 : 1,
                 }}
-                transition={{
-                    type: 'spring',
-                    stiffness: 500,
-                    damping: 28,
-                    mass: 0.5,
-                }}
+                // Transition handled by useSpring
             />
 
             {/* Outer ring */}
-            <motion.div
+            <Motion.div
                 className="fixed top-0 left-0 w-10 h-10 rounded-full border-2 border-[var(--accent-primary)]/50 pointer-events-none z-[9998]"
+                style={{
+                    x: ringXPos,
+                    y: ringYPos,
+                }}
                 animate={{
-                    x: position.x - 20,
-                    y: position.y - 20,
                     scale: isPointer ? 1.5 : 1,
                     opacity: isHidden ? 0 : 0.5,
                 }}
-                transition={{
-                    type: 'spring',
-                    stiffness: 250,
-                    damping: 20,
-                    mass: 0.8,
-                }}
+                // Transition handled by useSpring
             />
         </>
     )
